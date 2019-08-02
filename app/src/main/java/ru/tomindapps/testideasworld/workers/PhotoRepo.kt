@@ -6,10 +6,12 @@ import androidx.annotation.WorkerThread
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.squareup.picasso.Picasso
 import ru.tomindapps.testideasworld.db.PhotoDao
 import ru.tomindapps.testideasworld.models.Photo
 
 class PhotoRepo (val photoDao: PhotoDao, val context: Context) {
+
 
     var photos: MutableLiveData<ArrayList<Photo>> = MutableLiveData()
 
@@ -18,12 +20,15 @@ class PhotoRepo (val photoDao: PhotoDao, val context: Context) {
         return photoDao.selectAll() as ArrayList<Photo>
     }
 
-
     fun getPhotoListFromWeb(): ArrayList<Photo>{
-        return PhotoLoader.loadPhotos()
+        var listFromDb = getPhotoListFromDb()
+        PhotoLoader.photoCount = PhotoLoader.BASE_PHOTO_COUNT - listFromDb.size
+        var listFromWeb = PhotoLoader.loadPhotos()
+        listFromDb.addAll(listFromWeb)
+        return listFromDb
     }
 
-    @WorkerThread
+    //@WorkerThread
     fun getPhotosFromSource(){
 
         if (!isNetworkConnected(context)) photos.postValue(getPhotoListFromDb())

@@ -13,7 +13,7 @@ data class Photo(
     val color: String? = "#000000",
     val likes: Int,
     val description: String?,
-    val urls: String,
+    var urls: String,
     val user: String,
     val favorite: Int = 0
 )

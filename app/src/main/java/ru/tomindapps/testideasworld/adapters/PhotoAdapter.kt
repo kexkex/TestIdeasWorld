@@ -1,5 +1,6 @@
 package ru.tomindapps.testideasworld.adapters
 
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.photos_item_row.view.*
 import ru.tomindapps.testideasworld.R
 import ru.tomindapps.testideasworld.models.Photo
+import ru.tomindapps.testideasworld.workers.PhotoLoader
 
 class PhotoAdapter(listener: MyAdapterListener) :
 RecyclerView.Adapter<PhotoAdapter.MyViewHolder>(){
@@ -55,6 +57,15 @@ RecyclerView.Adapter<PhotoAdapter.MyViewHolder>(){
 
         fun bind(photo: Photo){
             Picasso.get().load(photo.urls).into(ivThumbnail)
+            saveIfLoaded(photo)
+
+        }
+
+        fun saveIfLoaded(photo: Photo){
+
+                Picasso.get().load(photo.urls).into(PhotoLoader.getTarget(photo.id))
+                photo.urls = "${Environment.getExternalStorageDirectory()}/Download/${photo.id}"
+
         }
     }
 

@@ -21,10 +21,17 @@ class PhotosFragmentViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun loadPhotos(){
+        DoGet().execute()
+        /*viewModelScope.launch(Dispatchers.IO){
+            photoRepo.getPhotosFromSource()
+        }*/
+    }
 
-        viewModelScope.launch(Dispatchers.IO){
+    inner class DoGet: AsyncTask<Unit, Unit, Unit>(){
+        override fun doInBackground(vararg params: Unit?) {
             photoRepo.getPhotosFromSource()
         }
+
     }
 
 
