@@ -6,9 +6,18 @@
              tools:context=".views.InfoFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment"/>
+            android:layout_height="match_parent">
+        <TextView
+                android:text="Иван Юшенков, YushenkovIV@yandex.ru"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/textView"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Использованы библиотеки GSON, ROOM, PICASSO"/>
+    </LinearLayout>
 
 </FrameLayout>

@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.navigation_photos -> {
                     //                 toolbar.setTitle("Photos")
-                    fragment = PhotosFragment.newInstance("","")
+                    fragment = PhotosFragment()
                     loadFragment(fragment)
                     return true
                 }

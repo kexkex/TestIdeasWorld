@@ -19,12 +19,8 @@ import ru.tomindapps.testideasworld.workers.PhotoLoader
 class PhotoAdapter(listener: MyAdapterListener) :
 RecyclerView.Adapter<PhotoAdapter.MyViewHolder>(){
 
-    var listener: MyAdapterListener
+    var listener: MyAdapterListener = listener
     var photoList = ArrayList<Photo>()
-
-    init {
-        this.listener = listener
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.photos_item_row, parent, false)
@@ -65,7 +61,6 @@ RecyclerView.Adapter<PhotoAdapter.MyViewHolder>(){
                 1 -> ivFavorite.setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP)
             }
             Picasso.get().load(photo.urls).into(ivThumbnail)
-            Log.d("Main", photo.favorite.toString() + "       Adapter")
 
         }
     }
