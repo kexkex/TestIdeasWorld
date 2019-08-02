@@ -1,6 +1,9 @@
 package ru.tomindapps.testideasworld.adapters
 
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Environment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +20,7 @@ class PhotoAdapter(listener: MyAdapterListener) :
 RecyclerView.Adapter<PhotoAdapter.MyViewHolder>(){
 
     var listener: MyAdapterListener
-    var photoList = emptyList<Photo>()
+    var photoList = ArrayList<Photo>()
 
     init {
         this.listener = listener
@@ -44,7 +47,7 @@ RecyclerView.Adapter<PhotoAdapter.MyViewHolder>(){
     }
 
     private fun applyClickEvents(holder: MyViewHolder, position: Int) {
-        holder.rvItem.setOnClickListener{listener.onRowClicked(position) }
+        holder.ivThumbnail.setOnClickListener{listener.onRowClicked(position) }
         holder.ivFavorite.setOnClickListener{ listener.onFavoriteClicked(position) }
     }
 
@@ -56,15 +59,13 @@ RecyclerView.Adapter<PhotoAdapter.MyViewHolder>(){
 
 
         fun bind(photo: Photo){
+
+            when (photo.favorite){
+                0 -> ivFavorite.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP)
+                1 -> ivFavorite.setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP)
+            }
             Picasso.get().load(photo.urls).into(ivThumbnail)
-            saveIfLoaded(photo)
-
-        }
-
-        fun saveIfLoaded(photo: Photo){
-
-                Picasso.get().load(photo.urls).into(PhotoLoader.getTarget(photo.id))
-                photo.urls = "${Environment.getExternalStorageDirectory()}/Download/${photo.id}"
+            Log.d("Main", photo.favorite.toString() + "       Adapter")
 
         }
     }

@@ -15,5 +15,5 @@ data class Photo(
     val description: String?,
     var urls: String,
     val user: String,
-    val favorite: Int = 0
+    var favorite: Int
 )

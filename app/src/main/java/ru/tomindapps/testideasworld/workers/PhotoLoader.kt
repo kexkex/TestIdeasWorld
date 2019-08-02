@@ -33,7 +33,7 @@ object PhotoLoader {
 
     private val BASE_URL = "https://api.unsplash.com/"
     private val CLIENT_ID = "client_id=4ac598f7d1a250512b11c07cbc37ebc7f7d55b48e9b88f5c058c173d91a561a1"
-    val BASE_PHOTO_COUNT = 5
+    val BASE_PHOTO_COUNT = 20
     var photoCount = BASE_PHOTO_COUNT
 
     fun loadPhotos():ArrayList<Photo> = castToPhotos(parseJson())
@@ -51,7 +51,7 @@ object PhotoLoader {
             override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
 
 
-                var file = File("${Environment.getExternalStorageDirectory()}/Download/$id")
+                var file = File("${Environment.getExternalStorageDirectory()}/Download/${id}.jpg")
                 Log.d("Main", file.canRead().toString())
                 Log.d("Main", file.absolutePath)
 
@@ -88,7 +88,8 @@ object PhotoLoader {
                 unsplash.likes,
                 unsplash.description,
                 unsplash.urls.small,
-                unsplash.user.username
+                unsplash.user.username,
+                0
                 ))
         }
         return arr
@@ -98,7 +99,7 @@ object PhotoLoader {
     fun getJson():String?{
         val url = BASE_URL + "photos/?" + CLIENT_ID + "&per_page=" + photoCount
         var response = url.httpGet()
-        return response?.asString()
+        return response.asString()
     }
 
     fun parseJson():ArrayList<UnsplashPhoto>{

@@ -1,6 +1,7 @@
 package ru.tomindapps.testideasworld.views
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -34,11 +35,18 @@ private const val ARG_PARAM2 = "param2"
 
 class PhotosFragment : Fragment(), PhotoAdapter.MyAdapterListener {
     override fun onFavoriteClicked(position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        var photos = photosFragmentViewModel.photos.value!!
+        photosFragmentViewModel.updateFavoriteStatus(photos, position)
+        photosFragmentViewModel.addToFavorites(photos, position)
+
     }
 
     override fun onRowClicked(position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        var intent = Intent(this.context, ElementActivity::class.java)
+        var photo = photosFragmentViewModel.photos.value!![position]
+        intent.putExtra("imgPath", photo.urls)
+        intent.putExtra("authorName", photo.user)
+        startActivity(intent)
     }
 
     // TODO: Rename and change types of parameters
@@ -47,7 +55,6 @@ class PhotosFragment : Fragment(), PhotoAdapter.MyAdapterListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var photoAdapter: PhotoAdapter
-    private lateinit var photoList: ArrayList<Photo>
     private lateinit var photosFragmentViewModel: PhotosFragmentViewModel
 
 
@@ -62,13 +69,11 @@ class PhotosFragment : Fragment(), PhotoAdapter.MyAdapterListener {
 
         val mLayoutManager = GridLayoutManager(context, 3)
 
-        photoList = arrayListOf()
-
         photoAdapter = PhotoAdapter(this)
+        photosFragmentViewModel = ViewModelProviders.of(this.activity!!).get(PhotosFragmentViewModel::class.java)
+        photosFragmentViewModel.photos.observe(this.activity!!, Observer { photos -> photos.let { photoAdapter.setupPhotoList(it) } })
+        photosFragmentViewModel.loadPhotos()
 
-        photosFragmentViewModel = ViewModelProviders.of(this).get(PhotosFragmentViewModel::class.java)
-
-        photosFragmentViewModel.photos.observe(this, Observer { photos -> photos.let { photoAdapter.setupPhotoList(it) } })
 
         recyclerView = view.findViewById(R.id.rv_photos)
         recyclerView.layoutManager = mLayoutManager
@@ -76,10 +81,6 @@ class PhotosFragment : Fragment(), PhotoAdapter.MyAdapterListener {
         recyclerView.isNestedScrollingEnabled = false
         recyclerView.adapter = photoAdapter
 
-        photosFragmentViewModel.loadPhotos()
-
-
-        Log.d("Main", photoList.size.toString())
 
 
         return view

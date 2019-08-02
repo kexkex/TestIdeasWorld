@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
  //       toolbar = getSupportActionBar()
 
-        val navigation = findViewById(R.id.navigation) as BottomNavigationView
+        val navigation = findViewById<BottomNavigationView>(R.id.navigation)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener())
 
         loadFragment(PhotosFragment())
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
 
         override fun onNavigationItemSelected(item: MenuItem): Boolean {
             val fragment: Fragment
-            when (item.getItemId()) {
+            when (item.itemId) {
                 R.id.navigation_info -> {
                     //                  toolbar.setTitle("Info")
                     fragment = InfoFragment()
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.navigation_photos -> {
                     //                 toolbar.setTitle("Photos")
-                    fragment = PhotosFragment()
+                    fragment = PhotosFragment.newInstance("","")
                     loadFragment(fragment)
                     return true
                 }
@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun loadFragment(fragment: Fragment){
-        val transaction = getSupportFragmentManager().beginTransaction()
+        val transaction = supportFragmentManager.beginTransaction()
         with(transaction){
             replace(R.id.frame_container, fragment)
             addToBackStack(null)
