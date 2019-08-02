@@ -13,16 +13,17 @@ class PhotoRepo (val photoDao: PhotoDao, val context: Context) {
 
     var photos: MutableLiveData<ArrayList<Photo>> = MutableLiveData()
 
-    @WorkerThread
+
     fun getPhotoListFromDb(): ArrayList<Photo>{
-        return photoDao.selectAll()
+        return photoDao.selectAll() as ArrayList<Photo>
     }
 
-    @WorkerThread
+
     fun getPhotoListFromWeb(): ArrayList<Photo>{
         return PhotoLoader.loadPhotos()
     }
 
+    @WorkerThread
     fun getPhotosFromSource(){
 
         if (!isNetworkConnected(context)) photos.postValue(getPhotoListFromDb())

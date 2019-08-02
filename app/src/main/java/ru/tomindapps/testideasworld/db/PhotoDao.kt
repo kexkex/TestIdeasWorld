@@ -17,7 +17,7 @@ interface PhotoDao {
     fun delete(photo: Photo)
 
     @Query("Select * from photos")
-    fun selectAll():ArrayList<Photo>
+    fun selectAll():List<Photo>
 
     @Query("Select * from photos where id like :id")
     fun selectById(id: String): Photo

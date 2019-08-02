@@ -2,10 +2,6 @@ package ru.tomindapps.testideasworld.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
-import ru.tomindapps.testideasworld.converters.UnsplashLinksConverter
-import ru.tomindapps.testideasworld.converters.UnsplashUrlsConverter
-import ru.tomindapps.testideasworld.converters.UnsplashUsersConverter
 
 
 @Entity(tableName = "photos")
@@ -17,7 +13,7 @@ data class Photo(
     val color: String? = "#000000",
     val likes: Int,
     val description: String?,
-    val urls: UnsplashUrls,
-    val links: UnsplashLinks,
-    val user: UnsplashUser
+    val urls: String,
+    val user: String,
+    val favorite: Int = 0
 )

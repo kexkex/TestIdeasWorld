@@ -64,6 +64,8 @@ class PhotosFragment : Fragment(), PhotoAdapter.MyAdapterListener {
 
         photoList = arrayListOf()
 
+        photoAdapter = PhotoAdapter(this)
+
         photosFragmentViewModel = ViewModelProviders.of(this).get(PhotosFragmentViewModel::class.java)
 
         photosFragmentViewModel.photos.observe(this, Observer { photos -> photos.let { photoAdapter.setupPhotoList(it) } })
@@ -73,6 +75,8 @@ class PhotosFragment : Fragment(), PhotoAdapter.MyAdapterListener {
         recyclerView.itemAnimator = DefaultItemAnimator()
         recyclerView.isNestedScrollingEnabled = false
         recyclerView.adapter = photoAdapter
+
+        photosFragmentViewModel.loadPhotos()
 
 
         Log.d("Main", photoList.size.toString())
@@ -102,24 +106,5 @@ class PhotosFragment : Fragment(), PhotoAdapter.MyAdapterListener {
             }
     }
 
-    /*inner class DoGet : AsyncTask<Unit, Unit, ArrayList<Photo>>(){
-        override fun doInBackground(vararg params: Unit?): ArrayList<Photo> {
-            val result = PhotoLoader.parseJson()
-            Log.d("Main", result.size.toString())
-            return result
 
-        }
-
-        override fun onPostExecute(result: ArrayList<Photo>?) {
-
-
-            if (result != null) {
-                photoList.clear()
-                photoList.addAll(result)
-                Log.d("Main", result.size.toString())
-            }
-            photoAdapter.notifyDataSetChanged()
-            super.onPostExecute(result)
-        }
-    }*/
 }

@@ -15,7 +15,7 @@ class PhotoAdapter(listener: MyAdapterListener) :
 RecyclerView.Adapter<PhotoAdapter.MyViewHolder>(){
 
     var listener: MyAdapterListener
-    var photoList = emptyList<Photo>() as ArrayList<Photo>
+    var photoList = emptyList<Photo>()
 
     init {
         this.listener = listener
@@ -32,6 +32,7 @@ RecyclerView.Adapter<PhotoAdapter.MyViewHolder>(){
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.bind(photoList[position])
+        applyClickEvents(holder, position)
 
     }
 
@@ -53,7 +54,7 @@ RecyclerView.Adapter<PhotoAdapter.MyViewHolder>(){
 
 
         fun bind(photo: Photo){
-            Picasso.get().load(photo.urls.small).into(ivThumbnail)
+            Picasso.get().load(photo.urls).into(ivThumbnail)
         }
     }
 
