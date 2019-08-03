@@ -13,6 +13,7 @@ import ru.tomindapps.testideasworld.adapters.PhotoAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import ru.tomindapps.testideasworld.view_models.PhotosFragmentViewModel
 
 
@@ -46,11 +47,14 @@ class PhotosFragment : Fragment(), PhotoAdapter.MyAdapterListener {
 
         val mLayoutManager = GridLayoutManager(context, 3)
 
+        //val swipeLayout = view.findViewById(R.id.swipe_refresh_layout) as SwipeRefreshLayout
+
         photoAdapter = PhotoAdapter(this)
         photosFragmentViewModel = ViewModelProviders.of(this.activity!!).get(PhotosFragmentViewModel::class.java)
         photosFragmentViewModel.photos.observe(this.activity!!, Observer { photos -> photos.let { photoAdapter.setupPhotoList(it) } })
         photosFragmentViewModel.loadPhotos()
 
+        //swipeLayout.setOnClickListener { photosFragmentViewModel.loadPhotos() }
 
         recyclerView = view.findViewById(R.id.rv_photos)
         recyclerView.layoutManager = mLayoutManager
