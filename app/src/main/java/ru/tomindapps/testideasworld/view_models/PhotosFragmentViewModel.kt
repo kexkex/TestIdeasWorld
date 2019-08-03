@@ -76,7 +76,8 @@ class PhotosFragmentViewModel(app: Application) : AndroidViewModel(app) {
                 photo.likes,
                 photo.description,
                 photo.urls,
-                photo.user
+                photo.user,
+                photo.favorite
             )
             favoriteRepo.addFavorite(favorite)
 

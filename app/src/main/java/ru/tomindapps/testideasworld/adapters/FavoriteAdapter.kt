@@ -1,5 +1,7 @@
 package ru.tomindapps.testideasworld.adapters
 
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,6 +51,10 @@ class FavoriteAdapter (listener: MyAdapterListener) :
 
 
         fun bind(favorite: Favorite){
+            when (favorite.favorite){
+                0 -> ivFavorite.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_ATOP)
+                1 -> ivFavorite.setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP)
+            }
             Picasso.get().load(favorite.urls).into(ivThumbnail)
         }
 

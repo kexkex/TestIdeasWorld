@@ -43,6 +43,7 @@ class PhotoRepo (val photoDao: PhotoDao, val context: Context) {
     fun getPhotosFromSource():ArrayList<Photo>{
         photosFromDb = getPhotoListFromDb()
         photosFromDb.addAll(getPhotoListFromWeb())
+        for (photo in photosFromDb) photoDao.insert(photo)
         return photosFromDb
 
     }

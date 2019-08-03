@@ -14,5 +14,5 @@ data class Favorite(
     val description: String?,
     var urls: String,
     val user: String,
-    val favorite: Int = 0
+    val favorite: Int
 )
