@@ -4,10 +4,6 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Environment
 import android.util.Log
-import androidx.annotation.MainThread
-import androidx.annotation.WorkerThread
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.squareup.picasso.Picasso
 import ru.tomindapps.testideasworld.db.PhotoDao
@@ -23,12 +19,8 @@ class PhotoRepo (val photoDao: PhotoDao, val context: Context) {
     }
 
     fun getPhotoListFromWeb(): ArrayList<Photo> {
-        val photosFromWeb = PhotoLoader.loadPhotos()
-        for (photo in photosFromWeb){
-            if (photosFromDb.contains(photo))
-                photosFromWeb.remove(photo)
-        }
-        return photosFromWeb
+
+        return PhotoLoader.loadPhotos()
     }
 
 
@@ -41,10 +33,16 @@ class PhotoRepo (val photoDao: PhotoDao, val context: Context) {
 
     //@WorkerThread
     fun getPhotosFromSource():ArrayList<Photo>{
-        photosFromDb = getPhotoListFromDb()
-        photosFromDb.addAll(getPhotoListFromWeb())
-        for (photo in photosFromDb) photoDao.insert(photo)
-        return photosFromDb
+        var photos = getPhotoListFromDb()
+        var photosIds = ArrayList<String>()
+        for (photo in photos) photosIds.add(photo.id)
+        var photosWeb = getPhotoListFromWeb()
+        for (photo in photosWeb) if (!photosIds.contains(photo.id)) {
+            photos.add(photo)
+            photoDao.insert(photo)
+        } else {photoDao.update(photo)}
+
+        return photos
 
     }
 

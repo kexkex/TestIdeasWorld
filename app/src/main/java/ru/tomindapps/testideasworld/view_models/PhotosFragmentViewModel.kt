@@ -39,8 +39,10 @@ class PhotosFragmentViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun addToFavorites(photos: ArrayList<Photo>, position: Int) {
-        val pair = Pair(photos, position)
-        DoAdd().execute(pair)
+        if (photos[position].favorite == 0) {
+            val pair = Pair(photos, position)
+            DoAdd().execute(pair)
+        }
     }
 
     inner class DoGet: AsyncTask<Unit, Unit, ArrayList<Photo>>(){
