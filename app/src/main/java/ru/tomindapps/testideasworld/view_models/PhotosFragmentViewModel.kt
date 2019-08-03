@@ -49,7 +49,7 @@ class PhotosFragmentViewModel(app: Application) : AndroidViewModel(app) {
         }
 
         override fun onPostExecute(result: ArrayList<Photo>?) {
-            photos.postValue(result)
+            photoRepo.photos.postValue(result)
             photoRepo.saveLoaded(result!!)
         }
 

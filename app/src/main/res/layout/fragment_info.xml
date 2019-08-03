@@ -13,11 +13,11 @@
         <TextView
                 android:text="Иван Юшенков, YushenkovIV@yandex.ru"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/textView"/>
+                android:layout_height="wrap_content" android:id="@+id/textView" android:textColor="#00000000"/>
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Использованы библиотеки GSON, ROOM, PICASSO"/>
+                android:text="Использованы библиотеки GSON, ROOM, PICASSO" android:textColor="@android:color/black"/>
     </LinearLayout>
 
 </FrameLayout>

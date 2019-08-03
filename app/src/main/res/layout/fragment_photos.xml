@@ -6,15 +6,17 @@
              tools:context=".views.PhotosFragment">
 
 
-
-
-
-
-        <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" tools:listitem="@layout/photos_item_row" android:id="@+id/rv_photos"/>
-
-
+    <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:fillViewport="true">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="vertical">
+            <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" tools:listitem="@layout/photos_item_row"
+                    android:id="@+id/rv_photos"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 
 </FrameLayout>

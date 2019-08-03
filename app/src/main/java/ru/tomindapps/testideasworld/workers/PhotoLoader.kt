@@ -37,7 +37,7 @@ object PhotoLoader {
 
             override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
 
-                var file = File("${Environment.getExternalStorageDirectory()}/Download/${id}.jpg")
+                var file = File("${Environment.getExternalStorageDirectory()}/Download/${id}.jpeg")
                 Log.d("Main", file.canRead().toString())
                 Log.d("Main", file.absolutePath)
 

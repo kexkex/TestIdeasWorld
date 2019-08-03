@@ -35,7 +35,7 @@ class PhotoRepo (val photoDao: PhotoDao, val context: Context) {
     fun saveLoaded(photos: ArrayList<Photo>){
         for (photo in photos) {
             Picasso.get().load(photo.urls).into(PhotoLoader.getTarget(photo.id))
-            photo.urls = "${Environment.getExternalStorageDirectory()}/Download/${photo.id}.jpg"
+            photo.urls = "${Environment.getExternalStorageDirectory()}/Download/${photo.id}.jpeg"
         }
     }
 
